@@ -42,6 +42,7 @@ export default function Login() {
                     withCredentials: false,
                 }
             );
+            console.log("OTP response:", response.data);
             const { username, role } = response.data;
             setAuth({ user: username, role });
             navigate(`/Otp`, { replace: true }); // role-based redirect

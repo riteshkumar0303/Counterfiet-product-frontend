@@ -24,7 +24,7 @@ const Profile = () => {
     }
 
     const handleData = async (e) => {
-        const res = await axios.get(`http://localhost:5000/profile/${auth.user}`)
+        const res = await axios.get(`https://counterfiet-product-backend-1.onrender.com//profile/${auth.user}`)
             .then(res => {
                 console.log(JSON.stringify(res?.data[0]));
                 setName(res?.data[0].name);
