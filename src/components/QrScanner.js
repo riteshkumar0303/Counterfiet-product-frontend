@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import { QrReader } from 'react-qr-reader';
+import QrScanner from 'react-qr-scanner';
 
-const QrScanner = (props) => {
+const QrScannerComponent = (props) => {
+
   const [data, setData] = useState('');
 
   useEffect(() => {
@@ -9,22 +10,28 @@ const QrScanner = (props) => {
     props.passData(data);
   }, [data]);
 
+  const handleScan = (result) => {
+    if (result) {
+      setData(result.text || result);
+    }
+  };
+
+  const handleError = (err) => {
+    // Optionally handle errors
+    console.error(err);
+  };
+
   return (
     <>
-      <QrReader
-        onResult={(result, error) => {
-          if (result) {
-            setData(result?.text);
-          }
-
-          // if (error) {
-          //   console.info(error);
-          // }
-        }}
+      <QrScanner
+        delay={300}
+        onError={handleError}
+        onScan={handleScan}
         style={{ width: '100%' }}
       />
     </>
   );
 };
 
-export default QrScanner;
+export default QrScannerComponent;
+
