@@ -1,5 +1,5 @@
 import { Box, Paper, Typography } from '@mui/material';
-import bgImg from '../../img/bg.png';
+// import bgImg from '../../img/bg.png';
 import { TextField, Button } from '@mui/material';
 import { useEffect, useState } from 'react';
 import { ethers } from "ethers";
