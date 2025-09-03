@@ -198,7 +198,7 @@ const AddAccount = () => {
                         value={pwd2}
                     />
 
-                    {pwd == pwd2? null:
+                    {pwd === pwd2? null:
                             <Typography
                                 variant="body2"
                                 sx={{

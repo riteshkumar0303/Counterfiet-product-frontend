@@ -1,4 +1,4 @@
-import { Box, Paper, Avatar, Typography, Button } from '@mui/material';
+import { Box, Paper, Typography, Button } from '@mui/material';
 import bgImg from '../../img/bg.png';
 import { useEffect, useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';

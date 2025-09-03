@@ -1,5 +1,5 @@
 import { Box, Paper, Avatar, Typography, Button } from '@mui/material';
-import bgImg from '../../img/bg.png';  // You can still use the bgImg if needed.
+// import bgImg from '../../img/bg.png';  // You can still use the bgImg if needed.
 import Timeline from '@mui/lab/Timeline';
 import TimelineItem from '@mui/lab/TimelineItem';
 import TimelineSeparator from '@mui/lab/TimelineSeparator';
@@ -15,7 +15,7 @@ import abi from '../../utils/Identeefi.json';
 import { useEffect, useState } from 'react';
 import useAuth from '../../hooks/useAuth';
 import { ethers } from "ethers";
-import axios from 'axios';
+// import axios from 'axios';
 
 const getEthereumObject = () => window.ethereum;
 

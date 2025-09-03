@@ -1,5 +1,5 @@
 import { Box, Paper, Avatar, Typography, Button } from '@mui/material';
-import bgImg from '../../img/bg.png';
+// import bgImg from '../../img/bg.png';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import useAuth from '../../hooks/useAuth';
@@ -11,10 +11,10 @@ const Profile = () => {
     const [role, setRole] = useState([]);
     const [website, setWebsite] = useState([]);
     const [location, setLocation] = useState([]);
-    const [image, setImage] = useState({
-        file: [],
-        filepreview: null
-    });
+    // const [image, setImage] = useState({
+    //     file: [],
+    //     filepreview: null
+    // });
 
     const { auth } = useAuth()
     const navigate = useNavigate()

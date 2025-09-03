@@ -1,11 +1,10 @@
-import { Box, Button, styled, Typography } from "@mui/material";
+import { Box, styled, Typography } from "@mui/material";
 import React from "react";
 
-import buyIcon from "../../img/buy_icon.png";
-import sellIcon from "../../img/sell_icon.png";
-import rentIcon from "../../img/rent_icon.png";
-
-import ArrowRightAltIcon from "@mui/icons-material/ArrowRightAlt";
+// import buyIcon from "../../img/buy_icon.png";
+// import sellIcon from "../../img/sell_icon.png";
+// import rentIcon from "../../img/rent_icon.png";
+// import ArrowRightAltIcon from "@mui/icons-material/ArrowRightAlt";
 import CustomButton from "./CustomButton";
 
 const Guide = () => {

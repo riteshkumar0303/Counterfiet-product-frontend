@@ -1,4 +1,4 @@
-import { Button, styled, Typography } from "@mui/material";
+import { styled, Typography } from "@mui/material";
 import { Box, Container } from "@mui/system";
 import React from "react";
 import homeIllustration from "../../img/illustration.png";

@@ -251,7 +251,7 @@ const AddProduct = () => {
         existingSerialNumbers.push(serialNumber);
          
         // checking for duplicated serial number
-        const duplicates = existingSerialNumbers.filter((item, index) => existingSerialNumbers.indexOf(item) != index)
+    const duplicates = existingSerialNumbers.filter((item, index) => existingSerialNumbers.indexOf(item) !== index)
         console.log("duplicates: ", duplicates)
         const isDuplicate = duplicates.length >= 1;
 
