@@ -1,7 +1,7 @@
 import { Box, Paper, Typography, Autocomplete } from '@mui/material';
 // import bgImg from '../../img/bg.png';
 import { TextField, Button } from '@mui/material';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 import useAuth from '../../hooks/useAuth';
 import { ethers } from "ethers";
 import axios from 'axios';
@@ -67,6 +67,15 @@ const UpdateProductDetails = () => {
     const navigate = useNavigate();
     const location = useLocation();
     const qrData = location.state?.qrData;
+
+    const getUsername = useCallback(async () => {
+        await axios.get(`http://localhost:5000/profile/${auth.user}`)
+            .then(res => {
+                console.log(JSON.stringify(res?.data[0]));
+                setCurrName(res?.data[0].name);
+
+            })
+    }, [auth.user]);
 
 
     useEffect(() => {
@@ -138,15 +147,6 @@ const UpdateProductDetails = () => {
     }
 
        
-
-    const getUsername = async (e) => {
-        await axios.get(`http://localhost:5000/profile/${auth.user}`)
-            .then(res => {
-                console.log(JSON.stringify(res?.data[0]));
-                setCurrName(res?.data[0].name);
-
-            })
-    }
 
     const updateProduct = async (e) => {
         e.preventDefault();

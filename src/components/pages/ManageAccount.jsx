@@ -3,7 +3,7 @@ import bgImg from '../../img/bg.png';
 import axios from 'axios';
 import { DataGrid } from '@mui/x-data-grid';
 import { Button } from '@mui/material';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 const columns = [
@@ -26,17 +26,17 @@ const ManageAccount = () => {
     const [rows, setRows] = useState([]);
     const navigate = useNavigate()
 
-    useEffect(() => {
-        handleData();
-    }, []);
-
-    const handleData = async (e) => {
+    const handleData = useCallback(async () => {
         const res = await axios.get('http://localhost:5000/profileAll')
             .then(res => {
                 console.log(JSON.stringify(res.data));
                 setRows(res.data);
             })
-    }
+    }, []);
+
+    useEffect(() => {
+        handleData();
+    }, [handleData]);
 
     const handleBack = () => {
         navigate(-1)

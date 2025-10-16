@@ -1,7 +1,7 @@
 import { Box, Paper, Typography } from '@mui/material';
-import bgImg from '../../img/bg.png';
+// import bgImg from '../../img/bg.png';
 import { TextField, Button } from '@mui/material';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 import { ethers } from "ethers";
 import axios from 'axios';
 import abi from '../../utils/Identeefi.json';
@@ -74,6 +74,15 @@ const AddProduct = () => {
     const { auth } = useAuth();
     const navigate = useNavigate();
     
+    const getUsername = useCallback(async () => {
+        await axios.get(`http://localhost:5000/profile/${auth.user}`)
+            .then(res => {
+                console.log(JSON.stringify(res?.data[0]));
+                setManuName(res?.data[0].name);
+
+            })
+    }, [auth.user]);
+
     useEffect(() => {
         findMetaMaskAccount().then((account) => {
             if (account !== null) {
@@ -152,16 +161,6 @@ const AddProduct = () => {
             filepreview: URL.createObjectURL(e.target.files[0])
         })
     }
-
-    const getUsername = async (e) => {
-        await axios.get(`http://localhost:5000/profile/${auth.user}`)
-            .then(res => {
-                console.log(JSON.stringify(res?.data[0]));
-                setManuName(res?.data[0].name);
-
-            })
-    }
-
 
     // to upload image
     const uploadImage = async (image) => {
