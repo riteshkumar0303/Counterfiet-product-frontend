@@ -1,5 +1,5 @@
 import { Box, Paper, Typography, Autocomplete } from '@mui/material';
-import bgImg from '../../img/bg.png';
+// import bgImg from '../../img/bg.png';
 import { TextField, Button } from '@mui/material';
 import { useEffect, useState } from 'react';
 import useAuth from '../../hooks/useAuth';
@@ -49,7 +49,7 @@ const findMetaMaskAccount = async () => {
 
 const UpdateProductDetails = () => {
 
-    const [currentAccount, setCurrentAccount] = useState("");
+    // const [currentAccount, setCurrentAccount] = useState("");
     const [currDate, setCurrDate] = useState('');
     const [currLatitude, setCurrLatitude] = useState("");
     const [currLongtitude, setCurrLongtitude] = useState("");
@@ -71,24 +71,26 @@ const UpdateProductDetails = () => {
 
     useEffect(() => {
         console.log("qrdata", qrData)
-        const data = qrData.split(",");
-        // const contractAddress = data[0];
-        setSerialNumber(data[1]);
-        console.log("serialNumber", serialNumber)
+        if (qrData) {
+            const data = qrData.split(",");
+            // const contractAddress = data[0];
+            setSerialNumber(data[1]);
+            console.log("serialNumber", data[1])
+        }
 
         findMetaMaskAccount().then((account) => {
             if (account !== null) {
-                setCurrentAccount(account);
+                // setCurrentAccount(account);
             }
         });
-    });
+    }, [qrData]);
 
     useEffect(() => {
         console.log("useEffect 3")
 
         getUsername();
         getCurrentTimeLocation();
-    }, []);
+    }, [getUsername]);
 
 
     useEffect(() => {
@@ -109,6 +111,8 @@ const UpdateProductDetails = () => {
                                 break;
                             case "country":
                                 country = response.results[0].address_components[i].long_name;
+                                break;
+                            default:
                                 break;
                         }
                     }
@@ -136,7 +140,7 @@ const UpdateProductDetails = () => {
        
 
     const getUsername = async (e) => {
-        const res = await axios.get(`http://localhost:5000/profile/${auth.user}`)
+        await axios.get(`http://localhost:5000/profile/${auth.user}`)
             .then(res => {
                 console.log(JSON.stringify(res?.data[0]));
                 setCurrName(res?.data[0].name);

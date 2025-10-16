@@ -76,7 +76,7 @@ const AuthenticProduct = () => {
         if(currentAccount){
             navigate('/product', { state: { qrData }});
         }
-    }, [currentAccount]);
+    }, [currentAccount, navigate, qrData]);
 
     console.log("qrdata: ", qrData);
 

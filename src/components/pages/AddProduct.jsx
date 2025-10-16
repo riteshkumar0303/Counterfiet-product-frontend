@@ -1,5 +1,5 @@
 import { Box, Paper, Typography } from '@mui/material';
-// import bgImg from '../../img/bg.png';
+import bgImg from '../../img/bg.png';
 import { TextField, Button } from '@mui/material';
 import { useEffect, useState } from 'react';
 import { ethers } from "ethers";
@@ -50,7 +50,7 @@ const findMetaMaskAccount = async () => {
 
 const AddProduct = () => {    
 
-    const [currentAccount, setCurrentAccount] = useState("");
+    // const [currentAccount, setCurrentAccount] = useState("");
     const [serialNumber, setSerialNumber] = useState("");
     const [name, setName] = useState("");
     const [brand, setBrand] = useState("");
@@ -77,12 +77,12 @@ const AddProduct = () => {
     useEffect(() => {
         findMetaMaskAccount().then((account) => {
             if (account !== null) {
-                setCurrentAccount(account);
+                // setCurrentAccount(account);
             }
         });
         getUsername();
         getCurrentTimeLocation();
-    }, []);
+    }, [getUsername]);
 
     useEffect(() => {
         Geocode.setApiKey('AIzaSyB5MSbxR9Vuj1pPeGvexGvQ3wUel4znfYY')
@@ -102,6 +102,8 @@ const AddProduct = () => {
                       break;
                     case "country":
                       country = response.results[0].address_components[i].long_name;
+                      break;
+                    default:
                       break;
                   }
                 }
@@ -152,7 +154,7 @@ const AddProduct = () => {
     }
 
     const getUsername = async (e) => {
-        const res = await axios.get(`http://localhost:5000/profile/${auth.user}`)
+        await axios.get(`http://localhost:5000/profile/${auth.user}`)
             .then(res => {
                 console.log(JSON.stringify(res?.data[0]));
                 setManuName(res?.data[0].name);

@@ -8,7 +8,7 @@ const QrScannerComponent = (props) => {
   useEffect(() => {
     console.info(data);
     props.passData(data);
-  }, [data]);
+  }, [data, props]);
 
   const handleScan = (result) => {
     if (result) {

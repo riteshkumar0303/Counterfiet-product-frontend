@@ -15,30 +15,30 @@ const Guide = () => {
     },
   }));
 
-  // const GuidesBox = styled(Box)(({ theme }) => ({
-  //   display: "flex",
-  //   justifyContent: "space-around",
-  //   width: "70%",
-  //   marginTop: theme.spacing(5),
-  //   marginBottom: theme.spacing(5),
-  //   [theme.breakpoints.down("md")]: {
-  //     width: "100%",
-  //   },
-  //   [theme.breakpoints.down("sm")]: {
-  //     marginBottom: "0",
-  //     flexDirection: "column",
-  //   },
-  // }));
+  const GuidesBox = styled(Box)(({ theme }) => ({
+    display: "flex",
+    justifyContent: "space-around",
+    width: "70%",
+    marginTop: theme.spacing(5),
+    marginBottom: theme.spacing(5),
+    [theme.breakpoints.down("md")]: {
+      width: "100%",
+    },
+    [theme.breakpoints.down("sm")]: {
+      marginBottom: "0",
+      flexDirection: "column",
+    },
+  }));
 
-  // const GuideBox = styled(Box)(({ theme }) => ({
-  //   display: "flex",
-  //   flexDirection: "column",
-  //   alignItems: "center",
-  //   marginTop: theme.spacing(5),
-  //   [theme.breakpoints.down("sm")]: {
-  //     margin: theme.spacing(2, 0, 2, 0),
-  //   },
-  // }));
+  const GuideBox = styled(Box)(({ theme }) => ({
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    marginTop: theme.spacing(5),
+    [theme.breakpoints.down("sm")]: {
+      margin: theme.spacing(2, 0, 2, 0),
+    },
+  }));
 
   return (
     <Box
