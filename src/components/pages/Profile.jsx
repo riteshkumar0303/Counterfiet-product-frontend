@@ -23,22 +23,21 @@ const Profile = () => {
         navigate(-1)
     }
 
-    const handleData = async (e) => {
-        const res = await axios.get(`https://counterfiet-product-backend-1.onrender.com//profile/${auth.user}`)
-            .then(res => {
-                console.log(JSON.stringify(res?.data[0]));
-                setName(res?.data[0].name);
-                setDescription(res?.data[0].description);
-                setRole(res.data[0].role);
-                setWebsite(res?.data[0].website);
-                setLocation(res?.data[0].location);
-                // setImage(res.data.image);
-            })
-    }
-
     useEffect(() => {
+        const handleData = async () => {
+            await axios.get(`https://counterfiet-product-backend-1.onrender.com//profile/${auth.user}`)
+                .then(res => {
+                    console.log(JSON.stringify(res?.data[0]));
+                    setName(res?.data[0].name);
+                    setDescription(res?.data[0].description);
+                    setRole(res.data[0].role);
+                    setWebsite(res?.data[0].website);
+                    setLocation(res?.data[0].location);
+                    // setImage(res.data.image);
+                })
+        }
         handleData();
-    }, []);
+    }, [auth.user]);
 
     return (
 
@@ -55,7 +54,7 @@ const Profile = () => {
             paddingTop: "64px",
             paddingBottom: "64px"
         }}>
-        
+
             <Paper elevation={3} sx={{
                 width: "400px", margin: "auto", marginTop: "10%", marginBottom: "10%", padding: "3%", backgroundColor: "#e3eefc"
             }}>

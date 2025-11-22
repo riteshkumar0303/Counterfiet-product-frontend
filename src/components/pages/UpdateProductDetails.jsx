@@ -97,10 +97,17 @@ const UpdateProductDetails = () => {
     useEffect(() => {
         console.log("useEffect 3")
 
+        const getCurrentTimeLocation = () => {
+            setCurrDate(dayjs().unix())
+            navigator.geolocation.getCurrentPosition(function (position) {
+                setCurrLatitude(position.coords.latitude);
+                setCurrLongtitude(position.coords.longitude);
+            });
+        }
+
         getUsername();
         getCurrentTimeLocation();
     }, [getUsername]);
-
 
     useEffect(() => {
         Geocode.setApiKey('AIzaSyByNXeDU-PXIICF-mt6N-j4F_hx2qCHe98')
@@ -137,16 +144,6 @@ const UpdateProductDetails = () => {
         );
 
     }, [currLatitude, currLongtitude]);
-
-    const getCurrentTimeLocation = () => {
-        setCurrDate(dayjs().unix())
-        navigator.geolocation.getCurrentPosition(function (position) {
-            setCurrLatitude(position.coords.latitude);
-            setCurrLongtitude(position.coords.longitude);
-        });
-    }
-
-       
 
     const updateProduct = async (e) => {
         e.preventDefault();
@@ -200,7 +197,7 @@ const UpdateProductDetails = () => {
     return (
 
 
-<Box sx={{
+        <Box sx={{
             background: 'linear-gradient(to bottom right, #e0f2fe, #f3e8ff)',
             minHeight: "100vh",
             position: 'absolute',
@@ -225,78 +222,78 @@ const UpdateProductDetails = () => {
                 >
                     Update Product Details</Typography>
 
-                    <TextField
+                <TextField
+                    fullWidth
+                    id="outlined-disabled"
+                    margin="normal"
+                    label="Serial Number"
+                    disabled
+
+                    value={serialNumber}
+                />
+
+                <TextField
+                    fullWidth
+                    id="outlined-disabled"
+                    margin="normal"
+                    label="Name"
+                    disabled
+                    value={currName}
+                />
+                <TextField
+                    fullWidth
+                    id="outlined-disabled"
+                    margin="normal"
+                    label="Location"
+                    disabled
+                    multiline
+                    minRows={2}
+                    value={currLocation.replace(/;/g, ",")}
+                />
+                <TextField
+                    fullWidth
+                    id="outlined-disabled"
+                    margin="normal"
+                    label="Date"
+                    disabled
+
+                    value={dayjs(currDate * 1000).format("MMMM D, YYYY h:mm A")}
+                />
+
+                {auth.role === "supplier" ? null
+                    : <Autocomplete
+                        disablePortal
+                        id="combo-box-demo"
+                        options={options}
                         fullWidth
-                        id="outlined-disabled"
-                        margin="normal"
-                        label="Serial Number"
-                        disabled
+                        value={isSold}
+                        onChange={(event, newVal) => {
+                            setIsSold(newVal);
+                        }}
+                        renderInput={(params) =>
+                            <TextField {...params}
+                                fullWidth
+                                id="outlined-basic"
+                                margin="normal"
+                                label="Is Sold?"
+                                variant="outlined"
+                                inherit="False"
 
-                        value={serialNumber}
+                            />}
                     />
-
-                    <TextField
-                        fullWidth
-                        id="outlined-disabled"
-                        margin="normal"
-                        label="Name"
-                        disabled
-                        value={currName}
-                    />
-                    <TextField
-                        fullWidth
-                        id="outlined-disabled"
-                        margin="normal"
-                        label="Location"
-                        disabled
-                        multiline
-                        minRows={2}
-                        value={currLocation.replace(/;/g, ",")}
-                    />
-                    <TextField
-                        fullWidth
-                        id="outlined-disabled"
-                        margin="normal"
-                        label="Date"
-                        disabled
-
-                        value={dayjs(currDate * 1000).format("MMMM D, YYYY h:mm A")}
-                    />
-
-                    {auth.role === "supplier" ? null
-                        : <Autocomplete
-                            disablePortal
-                            id="combo-box-demo"
-                            options={options}
-                            fullWidth
-                            value={isSold}
-                            onChange={(event, newVal) => {
-                                setIsSold(newVal);
-                            }}
-                            renderInput={(params) =>
-                                <TextField {...params}
-                                    fullWidth
-                                    id="outlined-basic"
-                                    margin="normal"
-                                    label="Is Sold?"
-                                    variant="outlined"
-                                    inherit="False"
-
-                                />}
-                        />
-                    }
+                }
                 {loading === "" ? null
-                        : <Typography
-                            variant="body2"
-                            sx={{
-                                textAlign: "center", marginTop: "3%"
-                            }}
-                        >
-                            {loading}
-                        </Typography>
-                    }
-                    
-                
+                    : <Typography
+                        variant="body2"
+                        sx={{
+                            textAlign: "center", marginTop: "3%"
+                        }}
+                    >
+                        {loading}
+                    </Typography>
+                }
+
+
                 <Box
                     sx={{
                         width: "100%",
@@ -305,15 +302,15 @@ const UpdateProductDetails = () => {
                     }}
                 >
 
-                        <Button
-                            variant="contained"
-                            type="submit"
-                            onClick={handleSubmit}
-                            sx={{ textAlign: "center", width: "50%", marginTop: "3%", backgroundColor: '#98b5d5', '&:hover': { backgroundColor: '#618dbd' } }}
-                            >
-                            Update Product
-                        </Button>
-                    </Box>
+                    <Button
+                        variant="contained"
+                        type="submit"
+                        onClick={handleSubmit}
+                        sx={{ textAlign: "center", width: "50%", marginTop: "3%", backgroundColor: '#98b5d5', '&:hover': { backgroundColor: '#618dbd' } }}
+                    >
+                        Update Product
+                    </Button>
+                </Box>
 
 
 

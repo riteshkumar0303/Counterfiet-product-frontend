@@ -13,50 +13,16 @@ import dayjs from 'dayjs';
 import { useLocation, useNavigate } from 'react-router-dom';
 import abi from '../../utils/Identeefi.json';
 import { useEffect, useState } from 'react';
-import useAuth from '../../hooks/useAuth';
 import { ethers } from "ethers";
 // import axios from 'axios';
 
-const getEthereumObject = () => window.ethereum;
 
-const findMetaMaskAccount = async () => {
-    try {
-        const ethereum = getEthereumObject();
-
-        if (!ethereum) {
-            console.error("Make sure you have Metamask!");
-            return null;
-        }
-
-        const accounts = await ethereum.request({ method: "eth_accounts" });
-
-        if (accounts.length !== 0) {
-            const account = accounts[0];
-            return account;
-        } else {
-            console.error("No authorized account found");
-            return null;
-        }
-    } catch (error) {
-        console.error(error);
-        return null;
-    }
-};
 
 const UpdateProduct = () => {
-    const [currentAccount, setCurrentAccount] = useState("");
-    const [suppDate, setSuppDate] = useState('');
-    const [suppLatitude, setSuppLatitude] = useState("");
-    const [suppLongtitude, setSuppLongtitude] = useState("");
-    const [suppName, setSuppName] = useState("");
-    const [suppLocation, setSuppLocation] = useState("");
-    const [loading, setLoading] = useState("");
     const [serialNumber, setSerialNumber] = useState("");
-    const [productData, setProductData] = useState("");
     const [name, setName] = useState("P");
     const [brand, setBrand] = useState("");
     const [description, setDescription] = useState("");
-    const [imageName, setImageName] = useState("");
     const [history, setHistory] = useState([]);
     const [isSold, setIsSold] = useState(false);
     const [image, setImage] = useState({
@@ -67,77 +33,70 @@ const UpdateProduct = () => {
     const CONTRACT_ADDRESS = '0x62081f016446585cCC507528cc785980296b4Ccd';
     const CONTRACT_ABI = abi.abi;
 
-    const { auth } = useAuth();
+    // const { auth } = useAuth(); // Unused
     const navigate = useNavigate();
     const location = useLocation();
     const qrData = location.state?.qrData;
 
     useEffect(() => {
-        findMetaMaskAccount().then((account) => {
-            if (account !== null) {
-                setCurrentAccount(account);
+        const getImage = async (imageName) => {
+            setImage(prevState => ({
+                ...prevState,
+                filepreview: `http://localhost:5000/file/product/${imageName}`
+            }));
+        }
+
+        const setData = (d) => {
+            const arr = d.split(",");
+            setName(arr[1]);
+            setBrand(arr[2]);
+            setDescription(arr[3].replace(/;/g, ","));
+            getImage(arr[4]);
+
+            const hist = [];
+            let start = 5;
+
+            for (let i = 5; i < arr.length; i += 5) {
+                const actor = arr[start + 1];
+                const location = arr[start + 2].replace(/;/g, ",");
+                const timestamp = arr[start + 3];
+                const isSold = arr[start + 4] === "true" ? setIsSold(true) : false;
+
+                hist.push({ actor, location, timestamp, isSold });
+                start += 5;
             }
-        });
+            setHistory(hist);
+        }
+
+        const handleScan = async (qrData) => {
+            const data = qrData.split(",");
+            const contractAddress = data[0];
+            setSerialNumber(data[1]);
+
+            if (contractAddress === CONTRACT_ADDRESS) {
+                try {
+                    const { ethereum } = window;
+
+                    if (ethereum) {
+                        const provider = new ethers.providers.Web3Provider(ethereum);
+                        const signer = provider.getSigner();
+                        const productContract = new ethers.Contract(CONTRACT_ADDRESS, CONTRACT_ABI, signer);
+
+                        const product = await productContract.getProduct(data[1].toString());
+                        setData(product.toString());
+                    } else {
+                        alert("Ethereum object doesn't exist! Please connect your wallet first!");
+                    }
+                } catch (error) {
+                    console.log(error);
+                }
+            }
+        };
 
         if (qrData) {
             handleScan(qrData);
         }
-    }, [qrData]);
-
-    const getImage = async (imageName) => {
-        setImage(prevState => ({
-            ...prevState,
-            filepreview: `http://localhost:5000/file/product/${imageName}`
-        }));
-    }
-
-    const handleScan = async (qrData) => {
-        const data = qrData.split(",");
-        const contractAddress = data[0];
-        setSerialNumber(data[1]);
-
-        if (contractAddress === CONTRACT_ADDRESS) {
-            try {
-                const { ethereum } = window;
-
-                if (ethereum) {
-                    const provider = new ethers.providers.Web3Provider(ethereum);
-                    const signer = provider.getSigner();
-                    const productContract = new ethers.Contract(CONTRACT_ADDRESS, CONTRACT_ABI, signer);
-
-                    const product = await productContract.getProduct(data[1].toString());
-                    setData(product.toString());
-                } else {
-                    alert("Ethereum object doesn't exist! Please connect your wallet first!");
-                }
-            } catch (error) {
-                console.log(error);
-            }
-        }
-    };
-
-    const setData = (d) => {
-        const arr = d.split(",");
-        setName(arr[1]);
-        setBrand(arr[2]);
-        setDescription(arr[3].replace(/;/g, ","));
-        setImageName(arr[4]);
-        getImage(arr[4]);
-
-        const hist = [];
-        let start = 5;
-
-        for (let i = 5; i < arr.length; i += 5) {
-            const actor = arr[start + 1];
-            const location = arr[start + 2].replace(/;/g, ",");
-            const timestamp = arr[start + 3];
-            const isSold = arr[start + 4] === "true" ? setIsSold(true) : false;
-
-            hist.push({ actor, location, timestamp, isSold });
-            start += 5;
-        }
-        setHistory(hist);
-    }
+    }, [qrData, CONTRACT_ADDRESS, CONTRACT_ABI]);
 
     const handleBack = () => {
         navigate(-1);
@@ -278,7 +237,7 @@ const UpdateProduct = () => {
                         </TimelineItem>
                     </Timeline>
 
-                    {loading === "" ? null : <Typography variant="body2" sx={{ textAlign: "center", marginTop: "3%" }}>{loading}</Typography>}
+
 
                     <Button
                         variant="contained"

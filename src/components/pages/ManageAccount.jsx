@@ -27,7 +27,7 @@ const ManageAccount = () => {
     const navigate = useNavigate()
 
     const handleData = useCallback(async () => {
-        const res = await axios.get('http://localhost:5000/profileAll')
+        await axios.get('http://localhost:5000/profileAll')
             .then(res => {
                 console.log(JSON.stringify(res.data));
                 setRows(res.data);
@@ -75,25 +75,25 @@ const ManageAccount = () => {
 
                     />
                 </Paper>
-                    <Box
+                <Box
+                    sx={{
+                        width: "100%",
+                        display: "flex",
+                        justifyContent: "center",
+                    }}
+                >
+
+
+                    <Button
+                        onClick={handleBack}
                         sx={{
-                            width: "100%",
-                            display: "flex",
-                            justifyContent: "center",
+                            marginTop: "3%",
                         }}
                     >
+                        Back
+                    </Button>
 
-
-                        <Button
-                            onClick={handleBack}
-                            sx={{
-                                marginTop: "3%",
-                            }}
-                        >
-                            Back
-                        </Button>
-
-                    </Box>
+                </Box>
             </Paper>
         </Box>
     );

@@ -5,12 +5,12 @@ import useAuth from '../../hooks/useAuth';
 import { useNavigate } from 'react-router-dom';
 
 const ScannerPage = () => {
-    const CONTRACT_ADDRESS  = '0x62081f016446585cCC507528cc785980296b4Ccd';
+    const CONTRACT_ADDRESS = '0x62081f016446585cCC507528cc785980296b4Ccd';
     const [qrData, setQrData] = useState('');
 
     const { auth } = useAuth();
     const navigate = useNavigate();
-    
+
     const passData = (data) => {
         setQrData(data);
         console.log("qrdata 1: ", qrData);
@@ -20,10 +20,22 @@ const ScannerPage = () => {
         console.log("auth: ", auth);
         console.log("qrdata 2: ", qrData);
 
-        const arr = qrData.split(",");
-        const contractAddress = arr[0];
+        const navRole = () => {
+            navigate('/update-product', { state: { qrData } });
+        };
 
-        if(contractAddress){
+        const navUser = () => {
+            navigate('/authentic-product', { state: { qrData } });
+        };
+
+        const navFakeProduct = () => {
+            navigate('/fake-product');
+        };
+
+        if (qrData) {
+            const arr = qrData.split(",");
+            const contractAddress = arr[0];
+
             if (contractAddress === CONTRACT_ADDRESS) {
                 if (auth.role === "supplier" || auth.role === "retailer") {
                     navRole();
@@ -34,19 +46,7 @@ const ScannerPage = () => {
                 navFakeProduct();
             }
         }
-    }, [qrData]);
-
-    const navRole = () => {
-        navigate('/update-product', { state: { qrData }});
-    };
-
-    const navUser = () => {
-        navigate('/authentic-product', { state: { qrData }});
-    };
-
-    const navFakeProduct = () => {
-        navigate('/fake-product');
-    };
+    }, [qrData, auth, navigate, CONTRACT_ADDRESS]);
 
     const handleBack = () => {
         navigate(-1);
