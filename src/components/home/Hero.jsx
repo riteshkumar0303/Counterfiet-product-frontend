@@ -1,8 +1,8 @@
 import { Box, styled, Typography } from "@mui/material";
 import { Container } from "@mui/system";
 import React from "react";
-import Navbar from "./Navbar";
-import heroImg from "../../img/hero_illustration.png";
+
+import heroImg from "../../img/hero_illustration1.png";
 import CustomButton from "./CustomButton";
 import { Link } from "react-router-dom";
 
