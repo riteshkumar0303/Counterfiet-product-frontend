@@ -55,7 +55,7 @@ const GetStarted = () => {
         <img
           src={homeIllustration}
           alt="illustration"
-          style={{ maxWidth: "100%" }}
+          style={{ maxWidth: "100%", maxHeight: "100%", objectFit: "contain" }}
         />
       </CustomContainer>
     </CustomBox>
