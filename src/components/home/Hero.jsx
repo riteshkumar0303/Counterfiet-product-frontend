@@ -2,7 +2,7 @@ import { Box, styled, Typography } from "@mui/material";
 import { Container } from "@mui/system";
 import React from "react";
 
-import heroImg from "../../img/hero_illustration1.png";
+import heroImg from "../../img/hero_new.png";
 import CustomButton from "./CustomButton";
 import { Link } from "react-router-dom";
 

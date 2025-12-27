@@ -1,7 +1,7 @@
 import { styled, Typography } from "@mui/material";
 import { Box, Container } from "@mui/system";
 import React from "react";
-import homeIllustration from "../../img/illustration.png";
+import homeIllustration from "../../img/feature_new.png";
 import CustomButton from "./CustomButton";
 
 const GetStarted = () => {
