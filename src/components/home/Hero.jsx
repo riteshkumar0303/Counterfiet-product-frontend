@@ -47,7 +47,6 @@ const Hero = () => {
       }}
     >
       <Container>
-        <Navbar />
         <CustomBox>
           <Box sx={{ flex: "2" }}>
             <Typography

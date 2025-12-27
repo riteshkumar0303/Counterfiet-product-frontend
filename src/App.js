@@ -19,6 +19,9 @@ import AuthenticProduct from './components/pages/AuthenticProduct';
 import FakeProduct from './components/pages/FakeProduct';
 import UpdateProductDetails from './components/pages/UpdateProductDetails';
 import Otp from './components/pages/Otp';
+import OurStory from './components/home/OurStory';
+
+
 
 function App() {
 
@@ -32,17 +35,19 @@ function App() {
         <Route exact path='/login' element={< Login />}></Route>
         <Route exact path='/scanner' element={< ScannerPage />}></Route>
         <Route exact path='/product' element={< Product />}></Route>
+        <Route exact path='/our-story' element={< OurStory />}></Route>
+        {/* <Route exact path='/manufacturer' element={< Manufacturer/>}></Route> */}
         <Route exact path='/authentic-product' element={< AuthenticProduct />}></Route>
         <Route exact path='/fake-product' element={< FakeProduct />}></Route>
- <Route exact path='/Otp' element={< Otp />}></Route>
+        <Route exact path='/Otp' element={< Otp />}></Route>
         {/* private routes */}
         <Route element={<RequireAuth allowedRoles={["admin"]} />}>
-          
+
           <Route exact path='/admin' element={< Admin />}></Route>
-         
-          
+
+
           <Route exact path='/add-account' element={< AddAccount />}></Route>
-          <Route exact path='/manage-account' element={< ManageAccount />}></Route> 
+          <Route exact path='/manage-account' element={< ManageAccount />}></Route>
 
         </Route>
 
@@ -63,7 +68,7 @@ function App() {
         </Route>
 
         <Route element={<RequireAuth allowedRoles={["supplier"]} />}>
-          <Route exact path='/supplier' element={< Supplier />}></Route>        
+          <Route exact path='/supplier' element={< Supplier />}></Route>
         </Route>
 
         <Route element={<RequireAuth allowedRoles={["retailer"]} />}>

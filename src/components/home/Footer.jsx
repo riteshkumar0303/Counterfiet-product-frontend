@@ -1,12 +1,9 @@
 import { styled, Typography } from "@mui/material";
 import { Box, Container } from "@mui/system";
-import React from "react";
+import React, { forwardRef } from "react";
+import MailIcon from "@mui/icons-material/Mail";
 
-import fbIcon from "../../img/fbicon.png";
-import twitterIcon from "../../img/twittericon.png";
-import linkedinIcon from "../../img/linkedinicon.png";
-
-const Footer = () => {
+const Footer = forwardRef((props, contactRef) => {
   const CustomContainer = styled(Container)(({ theme }) => ({
     display: "flex",
     justifyContent: "space-around",
@@ -21,132 +18,69 @@ const Footer = () => {
     },
   }));
 
-  const IconBox = styled(Box)(({ theme }) => ({
-    display: "flex",
-    alignItems: "center",
-    gap: "1rem",
-    [theme.breakpoints.down("sm")]: {
-      justifyContent: "center",
-    },
-  }));
-
   const FooterLink = styled("span")(({ theme }) => ({
     fontSize: "16px",
     color: "#6B7280",
-    fontWeight: "400",
     cursor: "pointer",
-    transition: "color 0.3s ease",
-    "&:hover": {
-      color: "#2563EB",
-    },
+    "&:hover": { color: "#2563EB" },
   }));
 
   return (
-    <Box sx={{ py: 10 }}>
+    <Box sx={{ py: 10 }} ref={contactRef} id="footer">
       <CustomContainer>
         <Box>
-          <Typography
-            sx={{
-              fontSize: "20px",
-              color: "#1A1A2E",
-              fontWeight: "700",
-              mb: 2,
-            }}
-          >
+          <Typography fontSize={20} fontWeight={700} mb={2}>
             Products
           </Typography>
-
-          <FooterLink>Product Verification</FooterLink>
-          <br />
-          <FooterLink>Supply Chain Tracking</FooterLink>
-          <br />
-          <FooterLink>Anti-Counterfeiting</FooterLink>
-          <br />
+          <FooterLink>Product Verification</FooterLink><br />
+          <FooterLink>Supply Chain Tracking</FooterLink><br />
+          <FooterLink>Anti-Counterfeiting</FooterLink><br />
           <FooterLink>Smart Contracts</FooterLink>
         </Box>
 
         <Box>
-          <Typography
-            sx={{
-              fontSize: "20px",
-              color: "#1A1A2E",
-              fontWeight: "700",
-              mb: 2,
-            }}
-          >
+          <Typography fontSize={20} fontWeight={700} mb={2}>
             Resources
           </Typography>
-
-          <FooterLink>How It Works</FooterLink>
-          <br />
-          <FooterLink>Case Studies</FooterLink>
-          <br />
-          <FooterLink>Blog</FooterLink>
-          <br />
+          <FooterLink>How It Works</FooterLink><br />
+          <FooterLink>Case Studies</FooterLink><br />
+          <FooterLink>Blog</FooterLink><br />
           <FooterLink>Whitepaper</FooterLink>
         </Box>
 
         <Box>
-          <Typography
-            sx={{
-              fontSize: "20px",
-              color: "#1A1A2E",
-              fontWeight: "700",
-              mb: 2,
-            }}
-          >
+          <Typography fontSize={20} fontWeight={700} mb={2}>
             Company
           </Typography>
-
-          <FooterLink>About Us</FooterLink>
-          <br />
-          <FooterLink>Partnerships</FooterLink>
-          <br />
-          <FooterLink>Terms of Use</FooterLink>
-          <br />
+          <FooterLink>About Us</FooterLink><br />
+          <FooterLink>Partnerships</FooterLink><br />
+          <FooterLink>Terms of Use</FooterLink><br />
           <FooterLink>Privacy Policy</FooterLink>
         </Box>
 
         <Box>
-          <Typography
-            sx={{
-              fontSize: "20px",
-              color: "#1A1A2E",
-              fontWeight: "700",
-              mb: 2,
-            }}
-          >
+          <Typography fontSize={20} fontWeight={700} mb={2}>
             Get in touch
           </Typography>
-
-          <Typography
-            sx={{
-              fontSize: "16px",
-              color: "#6B7280",
-              fontWeight: "500",
-              mb: 2,
-            }}
-          >
+          <Typography fontSize={16} color="#6B7280" mb={2}>
             Let us help you find the perfect solution for your needs.
           </Typography>
+          <Typography fontSize={16} color="#6B7280" mb={1} sx={{ lineHeight: 1.8 }}>
+            <span>+91 7007012586</span> &nbsp;|&nbsp;
+            <span>+91 9005780653</span> &nbsp;|&nbsp;
+            <span>+91 8299461864</span>
+          </Typography>
 
-          <IconBox>
-            <img src={fbIcon} alt="fbIcon" style={{ cursor: "pointer" }} />
-            <img
-              src={twitterIcon}
-              alt="twitterIcon"
-              style={{ cursor: "pointer" }}
-            />
-            <img
-              src={linkedinIcon}
-              alt="linkedinIcon"
-              style={{ cursor: "pointer" }}
-            />
-          </IconBox>
+          <Box display="flex" alignItems="center" gap={1} mb={2} sx={{ color: "#6B7280", fontSize: "16px" }}>
+            <MailIcon fontSize="small" />
+            <span>ultrareal737@gmail.com</span>
+          </Box>
         </Box>
       </CustomContainer>
     </Box>
   );
-};
+});
 
 export default Footer;
+
+

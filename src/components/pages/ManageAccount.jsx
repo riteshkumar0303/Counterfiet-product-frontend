@@ -45,18 +45,14 @@ const ManageAccount = () => {
     return (
         <Box sx={{
             backgroundImage: `url(${bgImg})`,
-            minHeight: "80vh",
+            minHeight: "100vh",
             backgroundRepeat: "no-repeat",
-            position: 'absolute',
-            left: 0,
-            right: 0,
-            top: 0,
-            bottom: 0,
             backgroundSize: 'cover',
-            zIndex: -2,
-            overflowY: "scroll"
+            width: "100%",
+            paddingTop: "120px",
+            paddingBottom: 4
         }}>
-            <Paper elevation={3} sx={{ width: "80%", margin: "auto", height: "530px", marginTop: "5%", marginBottom: "5%", padding: "3%", backgroundColor: "#e3eefc" }}>
+            <Paper elevation={3} sx={{ width: "80%", margin: "auto", height: "fit-content", minHeight: "530px", padding: "3%", backgroundColor: "#e3eefc" }}>
                 <Typography
                     variant="h2"
                     sx={{

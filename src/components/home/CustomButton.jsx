@@ -8,6 +8,7 @@ const CustomButton = ({
   heroBtn,
   guideBtn,
   getStartedBtn,
+  ...props
 }) => {
   const StyledButton = styled(Button)(({ theme }) => ({
     backgroundColor: backgroundColor,
@@ -36,7 +37,7 @@ const CustomButton = ({
     },
   }));
 
-  return <StyledButton>{buttonText}</StyledButton>;
+  return <StyledButton {...props}>{buttonText}</StyledButton>;
 };
 
 export default CustomButton;
